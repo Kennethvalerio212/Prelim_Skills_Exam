@@ -2,11 +2,11 @@
 import xml.etree.ElementTree as ET
 import pandas as pd
   
-cols = ["Date", "Countries and Territories", "Number of Cases", "Deaths"]
+cols = ["dateRep", "countriesAndTerritories", "cases", "death"]
 rows = []
   
 # Parsing the XML file
-xmlparse = ET.parse('/Prelim_Skills_Exam/Covid_cases_xml.xml')
+xmlparse = ET.parse('covid_cases_xml.xml')
 root = xmlparse.getroot()
 for i in root:
     date = i.find("dateRep").text
@@ -14,12 +14,13 @@ for i in root:
     numcases = i.find("cases").text
     death = i.find("deaths").text
   
-    rows.append({"date": date,
-                 "countries": countries,
-                 "numcases": numcases,
+    rows.append({"dateRep": date,
+                 "countriesAndTerritories": countries,
+                 "cases": numcases,
                  "death": death})
   
+
 df = pd.DataFrame(rows, columns = cols) 
   
-# write dataframe to csv
+#write dataframe to csv
 df.to_csv('final2.csv')
